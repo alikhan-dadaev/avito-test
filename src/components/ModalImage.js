@@ -18,8 +18,6 @@ function ModalImage(props) {
     return (
         <div>
             <ModalImageIsOpen
-                isOpened={props.isOpened}
-                onModalClose={props.onModalClose}
                 modalImage={modalImage}
             />
         </div>

@@ -8,7 +8,6 @@ import ModalImage from "./ModalImage";
 
 function App() {
   const dispatch = useDispatch();
-  const [modal, setModal] = useState(false);
 
 
   useEffect (() => {
@@ -19,14 +18,8 @@ function App() {
       <Route path="/:id?">
         <div className="App">
           <Header />
-            <Images
-                modal={modal}
-                setModal={setModal}
-            />
-            <ModalImage
-                isOpened={modal}
-                onModalClose={()=> setModal(false)}
-            />
+            <Images />
+            <ModalImage />
         </div>
       </Route>
   );

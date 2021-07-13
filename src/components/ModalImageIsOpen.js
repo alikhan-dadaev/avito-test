@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
+import {useHistory, useParams} from "react-router";
+import {Link} from "react-router-dom";
 
 function ModalImageIsOpen(props) {
-    const comments = useSelector(state => state.inModalImage.items.comments);
+    const comments = useSelector(state => state.inModalImage.comments);
     const [addedComments, setAddedComments] = useState([]);
 
     const [nameField, setNameField] = useState("");
     const [commentField, setCommentField] = useState("");
+    const history = useHistory();
 
     const handleChangeName = (e) => {
         setNameField(e.target.value);
@@ -24,16 +27,19 @@ function ModalImageIsOpen(props) {
         setNameField('');
         setCommentField('');
     }
+    const handleClick = () => {
+        history.push("/")
+    }
+    const id = useParams().id;
 
-    console.log (comments)
 
 
     return (
-        <div className={`modal_wrapper ${props.isOpened ? 'open' : 'close'}`}>
+        <div className={`modal_wrapper ${id ? 'open' : 'close'}`}>
             <div className="modal_body">
                 <div className="modal_header">
                     <div className="modal_title"><h2>Напишите комментарий</h2></div>
-                    <div className="modal_close" onClick={props.onModalClose}>×</div>
+                    <Link className="modal_close" onClick={handleClick}>×</Link>
                 </div>
                 <div className="content_body">
                     <div className="modal_content">
@@ -69,16 +75,29 @@ function ModalImageIsOpen(props) {
                 </div>
                     <div className="modal_sidebar">
                         <span>Комментарии</span>
-                        {addedComments.map(comment => {
+                        {addedComments.map(addComment => {
                             return (
                                 <div className="comment_bar">
                                     <div className="comment_name">
-                                        {comment.name}
+                                        {addComment.name}
                                     </div>
                                     <div className="comment">
-                                      - "{comment.comment}"
+                                      - "{addComment.comment}"
                                     </div>
                                 </div>
+                            )
+                        })}
+                        {comments.map(comment => {
+                            return (
+                                <div className="existing_comment">
+                                    <div className="comment_date">
+                                        <i>Дата:</i> <br />{comment.date}
+                                    </div>
+                                    <div className="comment_text">
+                                        {comment.text}
+                                    </div>
+                                </div>
+
                             )
                         })}
                 </div>

@@ -1,5 +1,6 @@
 const initialState = {
     items: [],
+    comments: [],
     loading: false
 }
 const modalImageReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ const modalImageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload,
+                comments: action.payload.comments,
                 loading: false
             };
 
